@@ -7,12 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS переменные для удобного управления цветами во всем проекте */
         :root {
             --bg: #0f172a;        
             --card-bg: #1e293b;   
             --accent: #38bdf8;    
             --text: #f8fafc; 
+            --danger: #ef4444; 
         }
 
         body { 
@@ -25,36 +25,60 @@
 
         .container { max-width: 900px; width: 100%; }
 
-        
         h1 { text-align: center; font-size: 3rem; font-weight: 800; margin-bottom: 40px; color: var(--accent); }
 
-        /* Сетка для карточек, которая сама решает, сколько колонок уместить в ряд */
         .grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
             gap: 20px; margin-top: 20px; 
         }
 
-       
         .card {
             background: var(--card-bg); padding: 20px; border-radius: 16px;
             text-align: center; 
-            transition: all 0.3s ease; /* Плавная анимация при наведении */
+            transition: all 0.3s ease; 
             border: 1px solid #334155;
             text-decoration: none; color: inherit; display: block;
         }
 
-        /* Эффект «всплытия» при наведении мышки */
+        
         .card:hover { 
             transform: translateY(-10px); 
             border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2); /* Свечение */
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2); 
         }
 
-        /* Оформление счетчика голосов в виде ярлыка */
+        
         .votes { 
             font-size: 0.9rem; background: rgba(56, 189, 248, 0.1); 
             color: var(--accent); padding: 5px 12px; border-radius: 20px; 
+        }
+
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .btn-reset {
+            display: inline-block;
+            background: transparent;
+            color: var(--danger);
+            border: 2px solid var(--danger);
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            background: var(--danger);
+            color: var(--text);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+            transform: scale(1.05); 
         }
     </style>
 </head>
@@ -62,13 +86,10 @@
     <div class="container">
         <h1>Книжный Опрос</h1>
 
-        <!-- Секция жанров -->
         <section>
             <h2>Любимые Жанры</h2>
             <div class="grid">
-                <!-- Jinja2-цикл перебирает все жанры из словаря Python -->
                 {% for name, count in data.genres.items() %}
-                <!--Ссылка формируется динамически для каждого жанра -->
                 <a href="/vote/genres/{{ name }}" class="card">
                     <span class="name">{{ name }}</span>
                     <span class="votes">Голосов: {{ count }}</span>
@@ -77,7 +98,6 @@
             </div>
         </section>
 
-        <!--Секция авторов-->
         <section>
             <h2>Лучшие Авторы</h2>
             <div class="grid">
@@ -89,6 +109,10 @@
                 {% endfor %}
             </div>
         </section>
+
+        <div class="btn-container">
+            <a href="/reset" class="btn-reset">Очистить результаты</a>
+        </div>
     </div>
 </body>
 </html>
