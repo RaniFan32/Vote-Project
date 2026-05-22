@@ -40,6 +40,6 @@ def vote(category, name):
         save_data(data)
     return redirect(url_for('index'))
 
-#Запуск сервера
+
 if __name__ == '__main__':
     app.run(debug=True)
